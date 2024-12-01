@@ -1,7 +1,7 @@
 # Raphael's python virtual environment managing
 
 First, choose a destination where all the python venvs will be located. In my case it is:
-    /home/rapha/Downloads/Packages/python-venvs
+    /home/rapha/Documents/Implementations/python-venvs
 
 I created a shell variable for it, called PYTHON_VENV_LOCATION, defined in the file my-pyenvs-config.sh
 
