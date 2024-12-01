@@ -2,15 +2,9 @@
 
 # Getting the location of this folder 
 SCRIPT_NAME="my-pyenvs-list.sh"
-RUNNING_PATH="$(pwd)""/"
-ABSOLUTE_SCRIPT_PATH=$RUNNING_PATH$0
 
-# Removing the script name from the path variable
-# Check if the string ends with .sh
-if [[ "$ABSOLUTE_SCRIPT_PATH" == *.sh || "$ABSOLUTE_SCRIPT_PATH" == *-bash ]]; then
-  # Remove everything after the last '/', but keep the trailing slash
-  ABSOLUTE_SCRIPT_FOLDER="${ABSOLUTE_SCRIPT_PATH%/*}/"
-fi
+ABSOLUTE_SCRIPT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
+ABSOLUTE_SCRIPT_FOLDER="${ABSOLUTE_SCRIPT_PATH%/*}/"
 
 # Getting the main variables from the config script
 CONFIG_SCRIPT_NAME="my-pyenvs-config.sh"
@@ -23,7 +17,7 @@ echo "	"$PYTHON_VENV_LOCATION
 # Getting all the folders here and saving in a list, with the exception of those in the FOLDERS_EXCLUDE variable
 
 FOLDERS_EXCLUDE=("")
-ALL_FOLDERS=($(ls -d */))
+ALL_FOLDERS=($(ls -d $ABSOLUTE_SCRIPT_FOLDER*/))
 
 #ALL_FOLDERS=("base/" "py1/" "testx1/" "testx2/")
 

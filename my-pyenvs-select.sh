@@ -2,21 +2,14 @@
 
 # Getting the location of this folder 
 SCRIPT_NAME="my-pyenvs-select.sh"
-RUNNING_PATH="$(pwd)""/"
-ABSOLUTE_SCRIPT_PATH=$RUNNING_PATH$0
 
-# Removing the script name from the path variable
-# Check if the string ends with .sh or -bash
-if [[ "$ABSOLUTE_SCRIPT_PATH" == *.sh || "$ABSOLUTE_SCRIPT_PATH" == *-bash ]]; then
-  # Remove everything after the last '/', but keep the trailing slash
-  ABSOLUTE_SCRIPT_FOLDER="${ABSOLUTE_SCRIPT_PATH%/*}/"
-fi
+ABSOLUTE_SCRIPT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
+ABSOLUTE_SCRIPT_FOLDER="${ABSOLUTE_SCRIPT_PATH%/*}/"
 
 # Getting the main variables from the config script
 CONFIG_SCRIPT_NAME="my-pyenvs-config.sh"
 CONFIG_SCRIPT_PATH=$ABSOLUTE_SCRIPT_FOLDER$CONFIG_SCRIPT_NAME
 source $CONFIG_SCRIPT_PATH
-
 # Getting the folders for environments in the list script
 LIST_SCRIPT_NAME="my-pyenvs-list.sh"
 LIST_SCRIPT_PATH=$ABSOLUTE_SCRIPT_FOLDER$LIST_SCRIPT_NAME
@@ -57,7 +50,7 @@ if [[ "$selected_env" == "System/" ]]; then
 		deactivate
 	fi
 else
-	# If $selected_env is not "System/", just echo its value
-	source $PYTHON_VENV_LOCATION$selected_env"bin/activate"
+	# If $selected_env is not "System/", activate it.
+	source $selected_env"bin/activate"
 
 fi
